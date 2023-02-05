@@ -13,6 +13,7 @@ func NewRootHandler(l *log.Logger) *Handler {
 	return &Handler{
 		Pattern:        "/",
 		PatternHandler: &RootHandler{l},
+		Method:         "GET",
 	}
 }
 

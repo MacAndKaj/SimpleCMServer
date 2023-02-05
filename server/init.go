@@ -1,8 +1,10 @@
 package server
 
 import (
-	"SimpleCMServer/cmshandlers"
+	"SimpleCMServer/server/cmshandlers"
 	"context"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
@@ -29,11 +31,13 @@ func NewServer(p string, l *log.Logger, h []*cmshandlers.Handler) *CmsServer {
 }
 
 func (r *CmsServer) GoServer() {
-	mux := http.NewServeMux()
+	r.logger.Println("Configuring server")
+	router := mux.NewRouter()
 	for _, handler := range r.handlers {
-		mux.Handle(handler.Pattern, handler.PatternHandler)
+		router.Handle(handler.Pattern, handlers.LoggingHandler(os.Stdout, handler.PatternHandler)).Methods(handler.Method)
+		r.logger.Println("Register handler for path: ", handler.Pattern)
 	}
-	r.server.Handler = mux
+	r.server.Handler = router
 
 	go func() {
 		err := r.server.ListenAndServe()

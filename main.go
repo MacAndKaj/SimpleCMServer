@@ -1,9 +1,9 @@
 package main
 
 import (
-	"SimpleCMServer/cmshandlers"
 	"SimpleCMServer/config"
 	"SimpleCMServer/server"
+	"SimpleCMServer/server/cmshandlers"
 	"log"
 	"os"
 )
