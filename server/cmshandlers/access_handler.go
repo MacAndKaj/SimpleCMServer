@@ -9,17 +9,17 @@ import (
 )
 
 type request struct {
-	grantType    string `json:"grant_type"`
-	client       string `json:"client"`
-	clientSecret string `json:"client_secret"`
-	authCode     string `json:"auth_code"`
-	redirectUri  string `json:"redirect_uri"`
+	GrantType    string `json:"grant_type"`
+	Client       string `json:"client"`
+	ClientSecret string `json:"client_secret"`
+	AuthCode     string `json:"auth_code"`
+	RedirectUri  string `json:"redirect_uri"`
 }
 
 type response struct {
-	accessToken string `json:"access_token"`
-	tokenType   string `json:"token_type"`
-	expires     int    `json:"expires"`
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	Expires     int    `json:"expires"`
 }
 
 type AccessHandler struct {
@@ -43,14 +43,14 @@ func (h *AccessHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if req.grantType != "authorization_code" {
+	if req.GrantType != "authorization_code" {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 
 	resp := &response{
-		accessToken: "",
-		tokenType:   "Bearer",
-		expires:     int(60 * time.Minute),
+		AccessToken: "",
+		TokenType:   "Bearer",
+		Expires:     int(60 * time.Minute),
 	}
 	// prepare token here
 

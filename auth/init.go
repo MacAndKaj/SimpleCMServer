@@ -6,8 +6,8 @@ import (
 )
 
 type AuthService struct {
-	logger  *log.Logger
-	usersDb *sql.DB
+	logger   *log.Logger
+	tokensDb *sql.DB
 }
 
 func NewAuthService(l *log.Logger, d *sql.DB) *AuthService {
@@ -18,8 +18,8 @@ func NewAuthService(l *log.Logger, d *sql.DB) *AuthService {
 	}
 
 	service := &AuthService{
-		logger:  l,
-		usersDb: d,
+		logger:   l,
+		tokensDb: d,
 	}
 
 	return service
